@@ -17,6 +17,7 @@ import Button from '@mui/material/Button';
 import { Container, Stack } from '@mui/material';
 import Image from 'next/image';
 import logo from './../../../assetes/logo.png';
+import Link from 'next/link';
 
 interface Props {
     window?: () => Window;
@@ -37,10 +38,10 @@ export default function Navbar(props: Props) {
     const drawer = (
         <Container>
             <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-            <Stack direction="row" py={1} spacing="4px" alignItems="center">
-                            <Image src={logo} alt="logo" height={40} width={40}/>
-                          <Box>Flat<Box component="span" sx={{color: "primary.main"}}>FInder</Box></Box>
-                          </Stack>
+                <Stack component={Link} href="/" direction="row" py={1} spacing="4px" alignItems="center">
+                    <Image src={logo} alt="logo" height={40} width={40} />
+                    <Box>Flat<Box component="span" sx={{ color: "primary.main" }}>FInder</Box></Box>
+                </Stack>
                 <Divider />
                 <List>
                     {navItems.map((item) => (
@@ -59,7 +60,7 @@ export default function Navbar(props: Props) {
 
     return (
         <Container>
-            <Box sx={{ display: 'flex', background: "rgb(255, 255, 255)"}}>
+            <Box sx={{ display: 'flex', background: "rgb(255, 255, 255)" }}>
                 <CssBaseline />
                 <AppBar component="nav" sx={{ background: "rgb(255, 255, 255)", padding: "0 20px" }}>
                     <Toolbar>
@@ -77,25 +78,25 @@ export default function Navbar(props: Props) {
                             component="div"
                             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
                         >
-                          <Stack direction="row" spacing="4px" alignItems="center">
-                            <Image src={logo} alt="logo" height={40} width={40}/>
-                          <Box>Flat<Box component="span" sx={{color: "primary.main"}}>FInder</Box></Box>
-                          </Stack>
+                            <Stack component={Link} href="/" direction="row" spacing="4px" alignItems="center">
+                                <Image src={logo} alt="logo" height={40} width={40} />
+                                <Box>Flat<Box component="span" sx={{ color: "primary.main" }}>FInder</Box></Box>
+                            </Stack>
                         </Typography>
-                       <Stack direction="row" spacing={3} alignItems="center">
-                       <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                            <Typography>Home</Typography>
-                        </Box>
-                       <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                            <Typography>About Us</Typography>
-                        </Box>
-                        <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                            <Typography>Login</Typography>
-                        </Box>
-                        <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                            <Typography>My Profile</Typography>
-                        </Box>
-                       </Stack>
+                        <Stack direction="row" spacing={3} alignItems="center">
+                            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                                <Typography component={Link} href="/">Home</Typography>
+                            </Box>
+                            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                                <Typography component={Link} href="/about">About Us</Typography>
+                            </Box>
+                            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                                <Typography>Login</Typography>
+                            </Box>
+                            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                                <Typography component={Link} href="/my-profile">My Profile</Typography>
+                            </Box>
+                        </Stack>
                     </Toolbar>
                 </AppBar>
                 <nav>
