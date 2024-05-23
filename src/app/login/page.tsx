@@ -2,8 +2,15 @@ import { Box, Button, Container, Grid, Stack, TextField, Typography } from '@mui
 import Image from 'next/image';
 import Link from 'next/link';
 import logo from './../../assetes/logo.png';
+import FlatForm from '@/components/Forms/FlatForm';
+import { FieldValues } from 'react-hook-form';
 
 const LoginPage = () => {
+
+const handleSubmit = (values: FieldValues) => {
+    console.log(values)
+}
+
     return (
         <Container>
         <Stack
@@ -54,7 +61,9 @@ const LoginPage = () => {
                 </Typography>
               </Box>
             )} */}
-            <form
+            <FlatForm
+            onSubmit={handleSubmit}
+            defaultValues={{email: "", password: ""}}
             >
               <Box>
                 <Grid container spacing={2} my={1}>
@@ -88,7 +97,7 @@ const LoginPage = () => {
                   </Link>
                 </Typography>
               </Box>
-            </form>
+            </FlatForm>
           </Box>
         </Stack>
       </Container>
