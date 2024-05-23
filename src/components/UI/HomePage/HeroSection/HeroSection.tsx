@@ -44,7 +44,10 @@ const HeroSection = () => {
                 </Grid>
             </Grid>
             <Box sx={{ display: "flex", justifyContent: "center" }}>
-                <Image src={bannerImage} alt="logo" height={500} width={800} />
+                <Box sx={{width: 800}}>
+                    
+                <Image src={bannerImage} alt="logo" height={500} width={800} layout="responsive"/>
+                </Box>
             </Box>
             <Box sx={{ maxWidth: 400, margin: "0 auto" }}>
                 <Button fullWidth size="small">Share Your Flat</Button>

@@ -58,7 +58,7 @@ const flats = [
 const FlatListSection = () => {
   return (
     <Container>
-        <Typography variant='h5' component="h1" sx={{my: 2, textAlign: "center", fontWeight: 600}}>Flat For Sharing</Typography>
+        <Typography variant='h4' component="h2" sx={{my: 2, textAlign: "center", fontWeight: 600}}>Flat For Sharing</Typography>
       <Grid container spacing={4}>
         {flats.map((flat, index) => (
           <Grid item key={index} xs={12} sm={6} md={4}>
