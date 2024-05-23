@@ -12,11 +12,13 @@ export const theme = createTheme({
     components: {
         MuiButton: {
             defaultProps: {
-                variant: "contained"
+                variant: "contained",
             },
             styleOverrides: {
                 root: {
                     padding: "8px 24px",
+                    color: "white",
+                    fontWeight: 600
                 }
             }
         },
