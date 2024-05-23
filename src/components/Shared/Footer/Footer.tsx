@@ -1,9 +1,10 @@
 // components/Footer.tsx
 import React from 'react';
-import { Box, Container, Typography, Link, IconButton } from '@mui/material';
+import { Box, Container, Typography, IconButton } from '@mui/material';
 import { Email, Phone, Facebook, Twitter, Instagram } from '@mui/icons-material';
 import Image from 'next/image';
 import logo from '@/assetes/logo.png';
+import Link from 'next/link';
 
 const Footer: React.FC = () => {
   return (
@@ -56,11 +57,11 @@ const Footer: React.FC = () => {
           <Typography variant="body2" component="div">
             &copy; {new Date().getFullYear()} Your Company. All rights reserved.
           </Typography>
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
-            <Link href="/terms" color="inherit" underline="hover" sx={{ mx: 1 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1, gap: 2 }}>
+            <Link href="/terms" color="inherit">
               Terms of Use
             </Link>
-            <Link href="/privacy" color="inherit" underline="hover" sx={{ mx: 1 }}>
+            <Link href="/terms" >
               Privacy Policy
             </Link>
           </Box>

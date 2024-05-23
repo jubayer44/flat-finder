@@ -91,7 +91,7 @@ export default function Navbar(props: Props) {
                                 <Typography component={Link} href="/about">About Us</Typography>
                             </Box>
                             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                                <Typography>Login</Typography>
+                                <Typography component={Link} href="/login">Login</Typography>
                             </Box>
                             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
                                 <Typography component={Link} href="/my-profile">My Profile</Typography>
