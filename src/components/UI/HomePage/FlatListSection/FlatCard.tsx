@@ -1,6 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import { Card, CardActionArea, CardContent, CardMedia, Typography, Box } from '@mui/material';
+import Link from 'next/link';
 
 const FlatCard = ({ flat }: any) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -11,8 +12,8 @@ const FlatCard = ({ flat }: any) => {
   return (
     <Card sx={{ maxWidth: 340, margin: '1rem', borderRadius: 4 }}>
       <CardActionArea
-        component="a"
-        href={flat?.detailsLink}
+        component={Link}
+        href={`/flat-details/${flat?.detailsLink}`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >

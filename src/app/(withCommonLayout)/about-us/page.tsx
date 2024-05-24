@@ -1,4 +1,4 @@
-import { Container, Grid, Typography, Card, Box, CardContent, CardMedia, List, ListItem, ListItemIcon, ListItemText, Link } from '@mui/material';
+import { Container, Grid, Typography, Card, Box, CardMedia, List, ListItem, ListItemIcon, ListItemText, Link } from '@mui/material';
 import { Email, Phone, Facebook, Twitter, LinkedIn } from '@mui/icons-material';
 import Image from 'next/image';
 

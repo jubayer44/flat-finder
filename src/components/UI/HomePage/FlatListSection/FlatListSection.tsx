@@ -10,7 +10,7 @@ const flats = [
     description: 'A cozy apartment in the heart of the city.',
     price: 1200,
     bedrooms: 2,
-    detailsLink: '/flats/1',
+    detailsLink: '1',
   },
   {
     location: 'San Francisco, CA',
@@ -18,7 +18,7 @@ const flats = [
     description: 'A beautiful flat with a view of the bay.',
     price: 1500,
     bedrooms: 3,
-    detailsLink: '/flats/2',
+    detailsLink: '2',
   },
   {
     location: 'New York, NY',
@@ -26,7 +26,7 @@ const flats = [
     description: 'A cozy apartment in the heart of the city.',
     price: 1200,
     bedrooms: 2,
-    detailsLink: '/flats/3',
+    detailsLink: '3',
   },
   {
     location: 'New York, NY',
@@ -34,7 +34,7 @@ const flats = [
     description: 'A cozy apartment in the heart of the city.',
     price: 1200,
     bedrooms: 2,
-    detailsLink: '/flats/1',
+    detailsLink: '1',
   },
   {
     location: 'San Francisco, CA',
@@ -42,7 +42,7 @@ const flats = [
     description: 'A beautiful flat with a view of the bay.',
     price: 1500,
     bedrooms: 3,
-    detailsLink: '/flats/2',
+    detailsLink: '2',
   },
   {
     location: 'New York, NY',
@@ -50,7 +50,7 @@ const flats = [
     description: 'A cozy apartment in the heart of the city.',
     price: 1200,
     bedrooms: 2,
-    detailsLink: '/flats/3',
+    detailsLink: '3',
   },
   // Add more flats as needed
 ];
