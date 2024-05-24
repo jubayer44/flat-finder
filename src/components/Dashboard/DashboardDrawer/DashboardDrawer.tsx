@@ -1,27 +1,10 @@
 "use client";
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Image from 'next/image';
-import { Stack } from '@mui/material';
-import Link from 'next/link';
-import logo from '@/assetes/logo.png';
+import { AppBar, Avatar, Box, CssBaseline, Drawer, IconButton, Stack, Toolbar, Typography } from '@mui/material';
+import Sidebar from '../Sidebar/Sidebar';
+import { useState } from 'react';
 
-const drawerWidth = 240;
+const drawerWidth = 290;
 
 interface Props {
   window?: () => Window;
@@ -30,8 +13,9 @@ interface Props {
 
 export default function DashboardDrawer(props: Props) {
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [isClosing, setIsClosing] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -48,40 +32,7 @@ export default function DashboardDrawer(props: Props) {
     }
   };
 
-  const drawer = (
-    <Box sx={{p: 2}}>
-      <Stack direction="row" spacing={1} alignItems="center">
-        <Image src={logo} hight={40} width={40}/>
-        <Box sx={{fontWeight: 600}}>Flat<Box component="span" sx={{ color: "primary.main" }}>FInder</Box></Box>
-      </Stack>
 
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
 
   // Remove this const when copying and pasting into your project.
   const container = window !== undefined ? () => window().document.body : undefined;
@@ -94,6 +45,10 @@ export default function DashboardDrawer(props: Props) {
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
+          background: "#F4F7FE",
+          boxShadow: 0,
+          borderBottom: "1px solid #ddd",
+
         }}
       >
         <Toolbar>
@@ -102,13 +57,25 @@ export default function DashboardDrawer(props: Props) {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+            sx={{ mr: 2, display: { sm: "none" } }}
           >
-            <MenuIcon />
+            <MenuIcon sx={{ color: "primary.main" }} />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Responsive drawer
-          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              width: "100%",
+            }}
+          >
+            <Box>
+             <Typography fontWeight={600}>Dashboard</Typography>
+            </Box>
+            <Stack direction="row" gap={2}>
+              <Avatar alt="profile image" src="https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg" />
+            </Stack>
+          </Box>
         </Toolbar>
       </AppBar>
       <Box
@@ -131,7 +98,7 @@ export default function DashboardDrawer(props: Props) {
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
         >
-          {drawer}
+          <Sidebar />
         </Drawer>
         <Drawer
           variant="permanent"
@@ -141,7 +108,7 @@ export default function DashboardDrawer(props: Props) {
           }}
           open
         >
-          {drawer}
+          <Sidebar />
         </Drawer>
       </Box>
       <Box
@@ -150,7 +117,7 @@ export default function DashboardDrawer(props: Props) {
       >
         <Toolbar />
         <Box>
-            {props?.children}
+          {props?.children}
         </Box>
       </Box>
     </Box>
