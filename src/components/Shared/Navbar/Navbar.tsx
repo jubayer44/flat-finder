@@ -88,7 +88,7 @@ export default function Navbar(props: Props) {
                                 <Typography component={Link} href="/">Home</Typography>
                             </Box>
                             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                                <Typography component={Link} href="/about">About Us</Typography>
+                                <Typography component={Link} href="/about-us">About Us</Typography>
                             </Box>
                             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
                                 <Typography component={Link} href="/login">Login</Typography>

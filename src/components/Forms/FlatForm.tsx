@@ -1,4 +1,3 @@
-import React from 'react';
 import { FieldValues, FormProvider, SubmitHandler, useForm, UseFormProps } from 'react-hook-form';
 
 type TFormConfig = UseFormProps<FieldValues>;
