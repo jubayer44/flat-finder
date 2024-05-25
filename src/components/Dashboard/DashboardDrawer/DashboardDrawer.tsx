@@ -98,7 +98,7 @@ export default function DashboardDrawer(props: Props) {
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
         >
-          <Sidebar />
+          <Sidebar handleDrawerClose={handleDrawerClose} />
         </Drawer>
         <Drawer
           variant="permanent"
@@ -108,7 +108,7 @@ export default function DashboardDrawer(props: Props) {
           }}
           open
         >
-          <Sidebar />
+          <Sidebar handleDrawerClose={handleDrawerClose} />
         </Drawer>
       </Box>
       <Box

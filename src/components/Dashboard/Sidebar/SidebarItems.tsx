@@ -1,18 +1,27 @@
-import { ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Box, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import { usePathname, useRouter } from "next/navigation";
 
+type TProps = {
+  item: any;
+  handleDrawerClose: any;
+}
 
-const SidebarItems = ({ item }: any) => {
+const SidebarItems = ({ item, handleDrawerClose }: TProps) => {
+  const router = useRouter();
   let pathname = usePathname();
   const linkPath = `/dashboard/${item?.path}`;
 
   if(pathname === "/dashboard") {
     pathname = pathname + "/"
+  };
+
+  const handleClick = () => {
+    handleDrawerClose()
+    router.push(linkPath)
   }
 
   return (
-    <Link href={linkPath}>
+    <Box onClick={handleClick}>
       <ListItem disablePadding sx={{
         mb: 1,
         ...((pathname) === linkPath ? {
@@ -29,7 +38,7 @@ const SidebarItems = ({ item }: any) => {
           <ListItemText primary={item?.title} />
         </ListItemButton>
       </ListItem>
-    </Link>
+    </Box>
   )
 };
 

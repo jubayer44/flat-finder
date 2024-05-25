@@ -1,9 +1,9 @@
-const FlatPostPage = () => {
+import FlatPostPage from "./components/FlatPostPage";
+
+const FlatPost = () => {
     return (
-        <div>
-            <h1>This is Flat post page</h1>
-        </div>
+        <FlatPostPage/>
     );
 };
 
-export default FlatPostPage;
+export default FlatPost;

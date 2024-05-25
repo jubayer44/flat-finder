@@ -19,7 +19,7 @@ const LoginComponent = () => {
 
   const handleSubmit = (values: FieldValues) => {
     console.log(values)
-  }
+  };
 
   return (
     <Container>

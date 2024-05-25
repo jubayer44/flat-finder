@@ -1,3 +1,4 @@
+"use client";
 import { SxProps, TextField } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
 
@@ -27,7 +28,7 @@ const FlatInput = ({ label, type="text", name, size="small", sx, disabled, requi
           label={label}
           variant="outlined"
           type={type}
-          fullWidth={fullWidth}
+          fullWidth
           size={size}
           disabled={disabled}
           required={required}
