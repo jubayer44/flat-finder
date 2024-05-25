@@ -11,10 +11,10 @@ import FlatInput from '@/components/Forms/FlatInput';
 
 const validationSchema = z
   .object({
-    userName: z.string({message: "User name is required"}),
+    username: z.string({message: "User name is required"}),
     email: z.string().email("Email is required"),
     password: z.string().min(5, "Password must be at least 5 characters"),
-    confirmPassword: z.string({message: "Password must be at least 5 characters"}).min(5),
+    confirmPassword: z.string({message: "Confirm password is required"}),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
@@ -85,7 +85,7 @@ const RegisterComponent = () => {
               <Box>
                 <Grid container spacing={2} my={1}>
                   <Grid item md={6}>
-                  <FlatInput label="User Name" name="userName" placeholder="User Name" />
+                  <FlatInput label="User Name" name="username" placeholder="User Name" />
                   </Grid>
                   <Grid item md={6}>
                   <FlatInput label="Email" name="email" placeholder="Email" type="email" />
