@@ -24,16 +24,7 @@ const Sidebar = ({ handleDrawerClose }: any) => {
             <Divider />
             <List>
                 {drawerOptions("user" as TUserRole)?.accountOptions?.map((item, index) => (
-                    <Link href={item.path} key={index}>
-                        <ListItem disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <item.icon />
-                                </ListItemIcon>
-                                <ListItemText primary={item?.title} />
-                            </ListItemButton>
-                        </ListItem>
-                    </Link>
+                    <SidebarItems key={index} item={item} handleDrawerClose={handleDrawerClose} />
                 ))}
                 <Stack direction="row" justifyContent="center">
                     <Button size="small" fullWidth sx={{ backgroundColor: "#f70733", maxWidth: "200px", margin: "10px auto" }}>Logout</Button>

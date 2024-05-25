@@ -33,7 +33,7 @@ const drawerOptions = (role: TUserRole) => {
             },
             {
                 title: "Requests on My Flats",
-                path: `${role}/requests-flat`,
+                path: `${role}/requests-on-my-flat`,
                 icon: GroupIcon
             },
         ],
