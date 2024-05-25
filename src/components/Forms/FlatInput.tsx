@@ -12,10 +12,13 @@ type TInputProps = {
     required?: boolean;
     placeholder?: string;
     fullWidth?: boolean;
+    rows?: number;
+    InputProps?: any;
+    multiline?: any
 };
 
 
-const FlatInput = ({ label, type="text", name, size="small", sx, disabled, required=false, placeholder, fullWidth=true }: TInputProps) => {
+const FlatInput = ({ label, type="text", name, size="small", sx, disabled, required=false, placeholder, fullWidth=true, rows, InputProps, multiline }: TInputProps) => {
     const {control} = useFormContext();
     return (
         <Controller
@@ -35,6 +38,9 @@ const FlatInput = ({ label, type="text", name, size="small", sx, disabled, requi
           error={!!error?.message}
           helperText={error?.message}
           placeholder={placeholder}
+          rows={rows}
+          InputProps={InputProps}
+          multiline={multiline}
           />
         )}
       />
