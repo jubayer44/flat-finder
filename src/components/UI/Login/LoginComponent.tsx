@@ -7,7 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FieldValues } from 'react-hook-form';
 import { z } from 'zod';
-import logo from './../../../assetes/logo.png';
+import logo from './../../../assets/logo.png';
 
 
 const validationSchema = z.object({

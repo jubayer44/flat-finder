@@ -1,3 +1,4 @@
+import { USER_ROLE } from "@/constants/role";
 import { TUserRole } from "@/types";
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -6,10 +7,14 @@ import HomeIcon from '@mui/icons-material/Home';
 import LockIcon from '@mui/icons-material/Lock';
 import PersonIcon from '@mui/icons-material/Person';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import ViewListIcon from '@mui/icons-material/ViewList';
 
 const drawerOptions = (role: TUserRole) => {
 
-    const defaultOptions = {
+    // if(!role) return 
+
+    const sidebarOptions = {
         flatsOptions: [
             {
                 title: "Dashboard",
@@ -26,16 +31,6 @@ const drawerOptions = (role: TUserRole) => {
                 path: `${role}/my-flat-posts`,
                 icon: HomeIcon
             },
-            {
-                title: "My Requests Flat",
-                path: `${role}/my-requests-flat`,
-                icon: QuestionAnswerIcon
-            },
-            {
-                title: "Requests on My Flats",
-                path: `${role}/requests-on-my-flat`,
-                icon: GroupIcon
-            },
         ],
         accountOptions: [
             {
@@ -49,9 +44,44 @@ const drawerOptions = (role: TUserRole) => {
                 icon: LockIcon
             }
         ]
+    };
+
+    if(role === USER_ROLE.USER){
+        sidebarOptions.flatsOptions.push(
+            {
+                title: "My Requests Flat",
+                path: `${role}/my-requests-flat`,
+                icon: QuestionAnswerIcon
+            },
+            {
+                title: "Requests on My Flats",
+                path: `${role}/requests-on-my-flat`,
+                icon: GroupIcon
+            },
+        )
+    };
+
+    if(role === USER_ROLE.ADMIN){
+        sidebarOptions.flatsOptions.push(
+            {
+                title: "View All Flats",
+                path: `${role}/view-all-flats`,
+                icon: ViewListIcon
+            }
+        );
+        sidebarOptions.accountOptions.push(
+            {
+                title: "Manage Users",
+                path: `${role}/manage-users`,
+                icon: ManageAccountsIcon
+            }
+        )
+
     }
 
-    return defaultOptions;
+
+
+    return sidebarOptions;
 };
 
 export default drawerOptions;

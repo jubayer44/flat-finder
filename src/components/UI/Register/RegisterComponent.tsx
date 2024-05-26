@@ -2,7 +2,7 @@
 import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
-import logo from './../../../assetes/logo.png';
+import logo from './../../../assets/logo.png';
 import FlatForm from '@/components/Forms/FlatForm';
 import { FieldValues } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';

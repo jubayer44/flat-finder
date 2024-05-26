@@ -3,7 +3,7 @@ import React from 'react';
 import { Box, Container, Typography, IconButton } from '@mui/material';
 import { Email, Phone, Facebook, Twitter, Instagram } from '@mui/icons-material';
 import Image from 'next/image';
-import logo from '@/assetes/logo.png';
+import logo from '@/assets/logo.png';
 import Link from 'next/link';
 
 const Footer: React.FC = () => {

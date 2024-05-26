@@ -1,13 +1,16 @@
 import { TUserRole } from "@/types";
 import drawerOptions from "@/utils/drawerOptions";
-import { Box, Button, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack } from "@mui/material";
+import { Box, Button, Divider, List, Stack } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
-import logo from "@/assetes/logo.png";
+import logo from "@/assets/logo.png";
 import SidebarItems from "./SidebarItems";
 
 
 const Sidebar = ({ handleDrawerClose }: any) => {
+
+
+    
     return (
         <Box sx={{ p: 2 }}>
             <Stack direction="row" spacing={1} alignItems="center" component={Link} href="/">
@@ -17,13 +20,13 @@ const Sidebar = ({ handleDrawerClose }: any) => {
 
 
             <List>
-                {(drawerOptions("user" as TUserRole)?.flatsOptions as any)?.map((item: any, index: number) => (
+                {(drawerOptions("admin" as TUserRole)?.flatsOptions as any)?.map((item: any, index: number) => (
                     <SidebarItems key={index} item={item} handleDrawerClose={handleDrawerClose} />
                 ))}
             </List>
             <Divider />
             <List>
-                {drawerOptions("user" as TUserRole)?.accountOptions?.map((item, index) => (
+                {drawerOptions("admin" as TUserRole)?.accountOptions?.map((item, index) => (
                     <SidebarItems key={index} item={item} handleDrawerClose={handleDrawerClose} />
                 ))}
                 <Stack direction="row" justifyContent="center">

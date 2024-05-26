@@ -1,5 +1,5 @@
 import { Box, Button, Container, Grid, Stack, TextField, Typography } from "@mui/material";
-import bannerImage from '@/assetes/banner-image.png';
+import bannerImage from '@/assets/banner-image.png';
 import Image from "next/image";
 
 const HeroSection = () => {

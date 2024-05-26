@@ -16,7 +16,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Container, Stack } from '@mui/material';
 import Image from 'next/image';
-import logo from './../../../assetes/logo.png';
+import logo from './../../../assets/logo.png';
 import Link from 'next/link';
 
 interface Props {
