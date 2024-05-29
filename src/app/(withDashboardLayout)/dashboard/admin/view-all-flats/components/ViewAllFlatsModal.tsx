@@ -1,11 +1,10 @@
 import FlatModal from '@/components/Shared/FlatModal/FlatModal';
 import FlatForm from '@/components/Forms/FlatForm';
 import FlatInput from '@/components/Forms/FlatInput';
-import FlatSelectField from '@/components/Forms/FlatSelectField';
 import {Button, Box, Grid} from '@mui/material';
 import { FieldValues } from "react-hook-form";
 import FlatFileUpload from '@/components/Forms/FlatFileUpload';
-import MultipleAmenitiesSelect from '../../../user/flat-post/components/MultipleAmenitiesSelect';
+import MultipleAmenitiesSelect from '@/components/Dashboard/CommonPages/FlatPost/MultipleAmenitiesSelect';
 import { useState } from 'react';
 
 const ViewAllFlatsModal = ({open, setOpen, flatId}: any) => {
@@ -55,7 +54,7 @@ const handleSubmit = (values: FieldValues) => {
                     </Grid>
                 </Grid>
 
-                <Button fullWidth type="submit" sx={{ margin: "20px 0" }}>Submit</Button>
+                <Button fullWidth type="submit" sx={{ margin: "20px 0" }}>Save Changes</Button>
 
             
 

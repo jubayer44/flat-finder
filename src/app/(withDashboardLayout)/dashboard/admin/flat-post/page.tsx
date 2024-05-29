@@ -3,7 +3,7 @@ import FlatPostPage from "@/components/Dashboard/CommonPages/FlatPost/FlatPostPa
 const FlatPost = () => {
     return (
         <FlatPostPage/>
-    );
+    )
 };
 
 export default FlatPost;

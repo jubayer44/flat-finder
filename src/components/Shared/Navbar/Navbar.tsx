@@ -18,6 +18,7 @@ import { Container, Stack } from '@mui/material';
 import Image from 'next/image';
 import logo from './../../../assets/logo.png';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 
 interface Props {
     window?: () => Window;
@@ -25,9 +26,23 @@ interface Props {
 }
 
 const drawerWidth = 240;
-const navItems = ['Home', 'About Us', 'Login', 'My Profile'];
+const navItems = [
+    {
+    text: "Home",
+    path: "/"
+    },
+    {
+    text: "About Us",
+    path: "/about-us"
+    },
+    {
+    text: "auth",
+    path: "/"
+    },
+];
 
 export default function Navbar(props: Props) {
+    const AuthButton = dynamic(()=> import('@/components/UI/AuthButton/AuthButton'), {ssr: false})
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -44,10 +59,11 @@ export default function Navbar(props: Props) {
                 </Stack>
                 <Divider />
                 <List>
-                    {navItems.map((item) => (
-                        <ListItem key={item} disablePadding>
+                    {navItems.map((item, i) => (
+                        <ListItem key={i} disablePadding>
                             <ListItemButton >
-                                <ListItemText primary={item} />
+                                {item.text !== "auth" ? <Link href={item.path}>{item.text}</Link> : <AuthButton/>}
+                                
                             </ListItemButton>
                         </ListItem>
                     ))}
@@ -84,18 +100,13 @@ export default function Navbar(props: Props) {
                             </Stack>
                         </Typography>
                         <Stack direction="row" spacing={3} alignItems="center">
-                            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                                <Typography component={Link} href="/">Home</Typography>
-                            </Box>
-                            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                                <Typography component={Link} href="/about-us">About Us</Typography>
-                            </Box>
-                            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                                <Typography component={Link} href="/login">Login</Typography>
-                            </Box>
-                            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                                <Typography component={Link} href="/my-profile">My Profile</Typography>
-                            </Box>
+                            {
+                                navItems.map((item, i) => (
+                                    <Box key={i} sx={{ display: { xs: 'none', sm: 'block' } }}>
+                                        {item.text !== "auth" ? <Typography component={Link} href={item.path}>{item.text}</Typography> : <AuthButton/>}
+                                    </Box>
+                                ))
+                            }
                         </Stack>
                     </Toolbar>
                 </AppBar>

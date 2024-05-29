@@ -16,6 +16,7 @@ export const theme = createTheme({
             },
             styleOverrides: {
                 root: {
+                    textTransform: 'none',
                     padding: "8px 24px",
                     color: "white",
                     fontWeight: 600

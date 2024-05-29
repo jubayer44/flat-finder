@@ -53,7 +53,7 @@ const FlatPostPage = () => {
                     </Grid>
                 </Grid>
 
-                <Button fullWidth type="submit" sx={{ margin: "20px 0" }}>Submit</Button>
+                <Button fullWidth type="submit" sx={{ margin: "20px 0" }}>Post</Button>
 
             </FlatForm>
         </Container>

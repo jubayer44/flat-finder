@@ -2,6 +2,7 @@
 import { Box, Button, Grid,  } from "@mui/material";
 import FlatForm from "@/components/Forms/FlatForm";
 import FlatInput from "@/components/Forms/FlatInput";
+import { FieldValues } from "react-hook-form";
 
 const EditProfile = () => {
 

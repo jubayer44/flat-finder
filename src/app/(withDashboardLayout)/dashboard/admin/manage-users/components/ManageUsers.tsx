@@ -4,31 +4,32 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Box, IconButton } from '@mui/material';
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import DeleteIcon from '@mui/icons-material/Delete';
-import ViewAllFlatsModal from './ViewAllFlatsModal';
+import ManageUsersModal from './ManageUsersModal';
 
-const ViewAllFlats = () => {
+const ManageUsers = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const [flatId, setFlatId] = useState<number>(0);
+    const [userId, setUserId] = useState<number>(0);
 
   const handleEdit = (id: number) => {
-    setFlatId(id);
+    setUserId(id);
     setIsModalOpen(true);
   }
 
     const schedules = [
-        { id: 1, location: 'New York', bedroom: 2, rentAmount: 2500 , status: "Pending"},
-        { id: 2, location: 'Los Angeles', bedroom: 3, rentAmount: 3000 , status: "Approved"},
-        { id: 3, location: 'Chicago', bedroom: 1, rentAmount: 1500 , status: "Pending"},
-        { id: 4, location: 'Houston', bedroom: 2, rentAmount: 2000 , status: "Reject"},
-        { id: 5, location: 'Phoenix', bedroom: 4, rentAmount: 3500, status: "Pending" }
+        { id: 1, username: 'jasbts44', email: "user1@gmail.com", role: "user", status: "Activate"},
+        { id: 2, username: 'jasbts45', email: "user2@gmail.com", role: "user", status: "Deactivate"},
+        { id: 3, username: 'jasbts46', email: "user3@gmail.com", role: "user", status: "Activate"},
+        { id: 4, username: 'jasbts47', email: "user4@gmail.com", role: "user", status: "Activate"},
+        { id: 5, username: 'jasbts48', email: "user5@gmail.com", role: "user", status: "Deactivate"}
     ];
 
 const isLoading = false;
 
     const columns: GridColDef[] = [
-        { field: 'location', headerName: 'Location', flex: 1 },
-        { field: 'bedroom', headerName: 'Bedroom', flex: 1 },
-        { field: 'rentAmount', headerName: 'Rent Amount', flex: 1 },
+        { field: 'username', headerName: 'User Name', flex: 1 },
+        { field: 'email', headerName: 'Email', flex: 1 },
+        { field: 'role', headerName: 'Role', flex: 1 },
+        { field: 'status', headerName: 'Status', flex: 1 },
         {
             field: "manage",
             headerName: "Manage",
@@ -64,7 +65,7 @@ const isLoading = false;
 
     return (
         <Box>
-          <ViewAllFlatsModal open={isModalOpen} setOpen={setIsModalOpen} flatId={flatId}/>
+          <ManageUsersModal open={isModalOpen} setOpen={setIsModalOpen} userId={userId}/>
             {
                 !isLoading ? (
             <Box sx={{mt: 5, width: {xs: "280px", sm: "400px", md: "100%"}, overflowX: {xs: "scroll", md: "none"}}}>
@@ -83,4 +84,4 @@ const isLoading = false;
     );
 };
 
-export default ViewAllFlats;
+export default ManageUsers;

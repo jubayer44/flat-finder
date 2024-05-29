@@ -8,6 +8,10 @@ import Link from 'next/link';
 import { FieldValues } from 'react-hook-form';
 import { z } from 'zod';
 import logo from './../../../assets/logo.png';
+import loginUser from '@/services/actions/loginUser';
+import { storeUser } from '@/services/authServices';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 
 const validationSchema = z.object({
@@ -16,9 +20,22 @@ const validationSchema = z.object({
 });
 
 const LoginComponent = () => {
+  const router = useRouter();
 
-  const handleSubmit = (values: FieldValues) => {
-    console.log(values)
+  const handleSubmit = async (values: FieldValues) => {
+    try {
+      const res = await loginUser(values);
+      if(res?.success === true){
+        router.refresh();
+         storeUser({accessToken: res.data.accessToken} );
+        
+        toast.success("Login Successful"); 
+      } else {
+        toast.error("Something went wrong")
+      }
+    } catch (error: any) {
+      console.log(error.message);
+    }
   };
 
   return (
