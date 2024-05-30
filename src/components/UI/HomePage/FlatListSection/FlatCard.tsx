@@ -2,8 +2,9 @@
 import React, { useState } from 'react';
 import { Card, CardActionArea, CardContent, CardMedia, Typography, Box } from '@mui/material';
 import Link from 'next/link';
+import { TFlat } from '@/types/flat';
 
-const FlatCard = ({ flat }: any) => {
+const FlatCard = ({ flat }: {flat: TFlat}) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => setIsHovered(true);
@@ -13,13 +14,13 @@ const FlatCard = ({ flat }: any) => {
     <Card sx={{ maxWidth: 340, margin: '1rem', borderRadius: 4 }}>
       <CardActionArea
         component={Link}
-        href={`/flat-details/${flat?.detailsLink}`}
+        href={`/flat-details/${flat?.id}`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
         <CardMedia
           component="img"
-          image={flat?.photo}
+          image={flat?.photos[0]}
           alt={flat?.location}
           sx={{
             height: 200,
@@ -33,18 +34,19 @@ const FlatCard = ({ flat }: any) => {
               {flat?.location}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {flat?.description}
+              {flat?.description.length > 100 ? flat?.description?.slice(0, 100) + "..." : flat?.description}
             </Typography>
           </Box>
-          <Typography variant="body1" color="primary.main">
-            ${flat?.price}
-          </Typography>
+          
         </CardContent>
       </CardActionArea>
-      <CardContent sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
+      <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Typography variant="body2" color="text.secondary">
           {flat?.bedrooms} Bedrooms
         </Typography>
+        <Typography variant="body1" color="primary.main">
+            ${flat?.rentAmount}
+          </Typography>
       </CardContent>
     </Card>
   );

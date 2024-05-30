@@ -12,6 +12,7 @@ import loginUser from '@/services/actions/loginUser';
 import { storeUser } from '@/services/authServices';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import { useState } from 'react';
 
 
 const validationSchema = z.object({
@@ -20,6 +21,7 @@ const validationSchema = z.object({
 });
 
 const LoginComponent = () => {
+  const [error, setError] = useState<string>("");
   const router = useRouter();
 
   const handleSubmit = async (values: FieldValues) => {
@@ -28,13 +30,14 @@ const LoginComponent = () => {
       if(res?.success === true){
         router.refresh();
          storeUser({accessToken: res.data.accessToken} );
-        
+        setError("");
         toast.success("Login Successful"); 
       } else {
-        toast.error("Something went wrong")
+        setError(res?.message)
       }
     } catch (error: any) {
       console.log(error.message);
+      toast.error(error.message);
     }
   };
 
@@ -71,7 +74,7 @@ const LoginComponent = () => {
               </Typography>
             </Box>
           </Stack>
-          {/* {error && (
+          {error && (
               <Box>
                 <Typography
                   sx={{
@@ -87,7 +90,7 @@ const LoginComponent = () => {
                   {error}
                 </Typography>
               </Box>
-            )} */}
+            )}
           <FlatForm
             onSubmit={handleSubmit}
             defaultValues={{ email: "", password: "" }}

@@ -11,7 +11,6 @@ export const isUserLoggedIn = () => {
 };
 
 export const storeUser = ({ accessToken }: { accessToken: string }) => {
-  console.log(accessToken)
   return setToLocalStorage(authKey, accessToken);
 };
 

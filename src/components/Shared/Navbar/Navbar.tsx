@@ -61,7 +61,7 @@ export default function Navbar(props: Props) {
                 <List>
                     {navItems.map((item, i) => (
                         <ListItem key={i} disablePadding>
-                            <ListItemButton >
+                            <ListItemButton>
                                 {item.text !== "auth" ? <Link href={item.path}>{item.text}</Link> : <AuthButton/>}
                                 
                             </ListItemButton>

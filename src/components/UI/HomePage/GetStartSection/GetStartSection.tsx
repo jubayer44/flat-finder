@@ -1,8 +1,9 @@
-// components/GetStarted.js
 import React from 'react';
 import { Box, Typography, Button, Container } from '@mui/material';
+import Link from 'next/link';
 
 const GetStarted = () => {
+
     return (
         <Container sx={{
             my: 2, backgroundColor: '#4d5639',
@@ -22,6 +23,8 @@ const GetStarted = () => {
                 </Typography>
                 <Button
                     variant="outlined"
+                    component={Link}
+                    href="/register"
                 >
                     Get Started
                 </Button>

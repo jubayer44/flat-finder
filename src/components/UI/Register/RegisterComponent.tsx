@@ -8,6 +8,12 @@ import { FieldValues } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import FlatInput from '@/components/Forms/FlatInput';
+import registerUser from '@/services/actions/registerUser';
+import { toast } from 'sonner';
+import loginUser from '@/services/actions/loginUser';
+import { useRouter } from 'next/navigation';
+import { storeUser } from '@/services/authServices';
+import { useState } from 'react';
 
 const validationSchema = z
   .object({
@@ -18,13 +24,41 @@ const validationSchema = z
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
-    path: ["confirmPassword"], // this sets the error on the confirmPassword field
+    path: ["confirmPassword"], 
   });
 
 const RegisterComponent = () => {
+  const [error, setError] = useState<string>("");
+  const router = useRouter();
 
-    const handleSubmit = (values: FieldValues) => {
-        console.log(values)
+    const handleSubmit = async (values: FieldValues) => {
+        try{
+          const userInfo = {
+              username: values?.username,
+              email: values?.email,
+              password: values?.password
+          }
+          const data = await registerUser(userInfo);
+          
+          if(data?.success){
+            setError("");
+            const loginData = await loginUser({
+              email: data?.data?.email,
+              password: userInfo?.password
+            });
+            if(loginData?.success){
+              router.refresh();
+              storeUser({accessToken: loginData.data.accessToken} );
+              router.push("/dashboard")
+              toast.success("Register Successfully")
+            }
+          } else {
+            setError(data?.message)
+          }
+        }
+        catch(err: any){
+          console.log(err?.message)
+        }
     }
 
     return (
@@ -60,7 +94,7 @@ const RegisterComponent = () => {
                 </Typography>
               </Box>
             </Stack>
-            {/* {error && (
+            {error && (
               <Box>
                 <Typography
                   sx={{
@@ -76,10 +110,10 @@ const RegisterComponent = () => {
                   {error}
                 </Typography>
               </Box>
-            )} */}
+            )}
             <FlatForm
             onSubmit={handleSubmit}
-            defaultValues={{email: "", password: ""}}
+            defaultValues={{username: "", email: "", password: "", confirmPassword: ""}}
             resolver={zodResolver(validationSchema)}
             >
               <Box>

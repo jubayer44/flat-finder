@@ -1,5 +1,7 @@
 import { Box, Typography, Button } from '@mui/material';
 import Image from 'next/image';
+import dhakaImage from '@/assets/dhakaCity.png';
+import Link from 'next/link';
 
 const PopularLocation = () => {
   return (
@@ -19,18 +21,18 @@ const PopularLocation = () => {
     >
       <Box sx={{ flex: 1, pr: { md: 3 }, mb: { xs: 3, md: 0 } }}>
         <Typography variant='h4' component="h2" sx={{ fontWeight: 600}} gutterBottom>
-          Explore Flat Shares in London
+          Explore Flat Shares in Dhaka
         </Typography>
         <Typography variant="body1" paragraph>
-          Discover amazing flat shares in the heart of London. Whether you&apos;re looking for a cozy room in a shared apartment or a spacious flat with great amenities, we have something for everyone. Start your search today and find your perfect home in one of the world&apos;s most vibrant cities.
+          Discover amazing flat shares in the heart of Bangladesh. Whether you&apos;re looking for a cozy room in a shared apartment or a spacious flat with great amenities, we have something for everyone. Start your search today and find your perfect home in one of the world&apos;s most vibrant cities.
         </Typography>
-        <Button variant="contained" color="primary" href="/search?location=london">
+        <Button component={Link} variant="contained" color="primary" href="/all-flats">
           View Listings
         </Button>
       </Box>
       <Box sx={{ flex: 1, width: '100%', height: 'auto' }}>
         <Image
-          src="https://t4.ftcdn.net/jpg/02/57/75/51/360_F_257755130_JgTlcqTFxabsIKgIYLAhOFEFYmNgwyJ6.jpg"
+          src={dhakaImage}
           alt="London"
           width={500}
           height={300}
