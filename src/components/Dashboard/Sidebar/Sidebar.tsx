@@ -5,11 +5,11 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "@/assets/logo.png";
 import SidebarItems from "./SidebarItems";
-
+import {getUserInfo} from '@/services/authServices';
 
 const Sidebar = ({ handleDrawerClose }: any) => {
 
-
+const user = getUserInfo();
     
     return (
         <Box sx={{ p: 2 }}>
@@ -20,13 +20,13 @@ const Sidebar = ({ handleDrawerClose }: any) => {
 
 
             <List>
-                {(drawerOptions("admin" as TUserRole)?.flatsOptions as any)?.map((item: any, index: number) => (
+                {(drawerOptions(user?.role as TUserRole)?.flatsOptions as any)?.map((item: any, index: number) => (
                     <SidebarItems key={index} item={item} handleDrawerClose={handleDrawerClose} />
                 ))}
             </List>
             <Divider />
             <List>
-                {drawerOptions("admin" as TUserRole)?.accountOptions?.map((item, index) => (
+                {drawerOptions(user?.role as TUserRole)?.accountOptions?.map((item, index) => (
                     <SidebarItems key={index} item={item} handleDrawerClose={handleDrawerClose} />
                 ))}
                 <Stack direction="row" justifyContent="center">

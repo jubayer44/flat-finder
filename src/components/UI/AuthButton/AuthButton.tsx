@@ -8,6 +8,7 @@ const AuthButton = () => {
     const userInfo = getUserInfo();
     const router = useRouter();
 
+    
     const handleLogout = () => {
         logoutUser(router);
         router.refresh();

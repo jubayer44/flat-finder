@@ -22,22 +22,27 @@ const validationSchema = z.object({
 
 const LoginComponent = () => {
   const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
 
   const handleSubmit = async (values: FieldValues) => {
     try {
+      setLoading(true);
       const res = await loginUser(values);
       if(res?.success === true){
         router.refresh();
          storeUser({accessToken: res.data.accessToken} );
         setError("");
         toast.success("Login Successful"); 
+        setLoading(false);
       } else {
         setError(res?.message)
+        setLoading(false);
       }
     } catch (error: any) {
       console.log(error.message);
       toast.error(error.message);
+      setLoading(false);
     }
   };
 
@@ -113,8 +118,8 @@ const LoginComponent = () => {
               >
                 Forgat Password
               </Typography>
-              <Button type="submit" fullWidth={true} sx={{ margin: "10px 0" }}>
-                Login
+              <Button type="submit" disabled={loading} fullWidth={true} sx={{ margin: "10px 0" }}>
+                {loading ? "Loading..." : "Login"}
               </Button>
               <Typography
                 component="p"

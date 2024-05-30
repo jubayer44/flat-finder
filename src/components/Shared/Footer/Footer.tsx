@@ -55,7 +55,7 @@ const Footer: React.FC = () => {
         </Box>
         <Box sx={{ borderTop: 1, borderColor: 'grey.800', pt: 3 }}>
           <Typography variant="body2" component="div">
-            &copy; {new Date().getFullYear()} Your Company. All rights reserved.
+            &copy; {new Date().getFullYear()} Flat Finder. All rights reserved.
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1, gap: 2 }}>
             <Link href="/terms" color="inherit">

@@ -14,6 +14,7 @@ import loginUser from '@/services/actions/loginUser';
 import { useRouter } from 'next/navigation';
 import { storeUser } from '@/services/authServices';
 import { useState } from 'react';
+import setAuthToken from '@/utils/setAuthToken';
 
 const validationSchema = z
   .object({
@@ -29,10 +30,12 @@ const validationSchema = z
 
 const RegisterComponent = () => {
   const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
 
     const handleSubmit = async (values: FieldValues) => {
         try{
+          setLoading(true);
           const userInfo = {
               username: values?.username,
               email: values?.email,
@@ -49,15 +52,19 @@ const RegisterComponent = () => {
             if(loginData?.success){
               router.refresh();
               storeUser({accessToken: loginData.data.accessToken} );
+              setAuthToken(loginData.data.accessToken);
               router.push("/dashboard")
               toast.success("Register Successfully")
+              setLoading(false)
             }
           } else {
-            setError(data?.message)
+            setError(data?.message);
+            setLoading(false)
           }
         }
         catch(err: any){
-          console.log(err?.message)
+          console.log(err?.message);
+          setLoading(false)
         }
     }
 
@@ -131,8 +138,8 @@ const RegisterComponent = () => {
                     <FlatInput name="confirmPassword" placeholder='Password' label="Confirm Password" type="password" />
                   </Grid>
                 </Grid>
-                <Button type="submit" fullWidth={true} sx={{ margin: "10px 0" }}>
-                  Register
+                <Button type="submit" disabled={loading} fullWidth={true} sx={{ margin: "10px 0" }}>
+                  {loading ? "Loading..." : "Register"}
                 </Button>
                 <Typography
                   component="p"

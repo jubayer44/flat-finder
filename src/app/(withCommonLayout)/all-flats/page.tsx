@@ -1,16 +1,21 @@
 import FlatCard from '@/components/UI/HomePage/FlatListSection/FlatCard';
 import { TFlat } from '@/types/flat';
-import { Container, Grid, Typography } from '@mui/material';
+import { Container, Grid, Typography, Box } from '@mui/material';
+import PaginationControlled from './components/Pagination';
 
 const AllFlatsPage = async ({ searchParams }: any) => {
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/flats?limit=200`, {
+    const page = searchParams?.page || 1;
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/flats?limit=6&page=${page}`, {
         next: {
             revalidate: 30,
         },
     });
 
     const flats = await res.json();
+
+    const totalPages = Math.ceil(flats.meta.total / 6)
 
     return (
         <Container>
@@ -22,7 +27,9 @@ const AllFlatsPage = async ({ searchParams }: any) => {
                     </Grid>
                 ))}
             </Grid>
-            {/* <PaginationControlled totalPages={flats?.totalPages || 10} /> */}
+            <Box sx={{margin: "15px 0", display: "flex", justifyContent: "center"}}>
+            <PaginationControlled totalPages={totalPages} />
+            </Box>
         </Container>
     );
 };
