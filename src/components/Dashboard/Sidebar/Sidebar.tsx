@@ -1,3 +1,5 @@
+"use client";
+import { useEffect, useState } from 'react';
 import { TUserRole } from "@/types";
 import drawerOptions from "@/utils/drawerOptions";
 import { Box, Button, Divider, List, Stack } from "@mui/material";
@@ -5,12 +7,25 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "@/assets/logo.png";
 import SidebarItems from "./SidebarItems";
-import {getUserInfo} from '@/services/authServices';
+import { getUserInfo } from '@/services/authServices';
+import { useRouter } from "next/navigation";
+import { logoutUser } from "@/services/actions/logoutUser";
 
 const Sidebar = ({ handleDrawerClose }: any) => {
+    const [userRole, setUserRole] = useState("");
+    const router = useRouter();
 
-const user = getUserInfo();
-    
+    const handleLogout = () => {
+        logoutUser(router);
+        router.refresh()
+    };
+
+    useEffect(() => {
+        const { role } = getUserInfo();
+        setUserRole(role);
+    }, [])
+
+
     return (
         <Box sx={{ p: 2 }}>
             <Stack direction="row" spacing={1} alignItems="center" component={Link} href="/">
@@ -20,17 +35,17 @@ const user = getUserInfo();
 
 
             <List>
-                {(drawerOptions(user?.role as TUserRole)?.flatsOptions as any)?.map((item: any, index: number) => (
+                {(drawerOptions(userRole as TUserRole)?.flatsOptions as any)?.map((item: any, index: number) => (
                     <SidebarItems key={index} item={item} handleDrawerClose={handleDrawerClose} />
                 ))}
             </List>
             <Divider />
             <List>
-                {drawerOptions(user?.role as TUserRole)?.accountOptions?.map((item, index) => (
+                {drawerOptions(userRole as TUserRole)?.accountOptions?.map((item, index) => (
                     <SidebarItems key={index} item={item} handleDrawerClose={handleDrawerClose} />
                 ))}
                 <Stack direction="row" justifyContent="center">
-                    <Button size="small" fullWidth sx={{ backgroundColor: "#f70733", maxWidth: "200px", margin: "10px auto" }}>Logout</Button>
+                    <Button onClick={() => handleLogout()} size="small" fullWidth sx={{ backgroundColor: "#f70733", maxWidth: "200px", margin: "10px auto" }}>Logout</Button>
                 </Stack>
             </List>
         </Box>

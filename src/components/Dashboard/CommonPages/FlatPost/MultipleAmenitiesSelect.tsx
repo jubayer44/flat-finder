@@ -19,6 +19,7 @@ const MenuProps = {
 
 const names = [
   "Wifi",
+  "Gym",
   "Parking",
   "Swimming"
 ];

@@ -12,4 +12,22 @@ export type TUser = {
     accessToken?: string;
     createdAt?: string;
     updatedAt?: string
-}
+};
+
+export type TFlatShareRequest = {
+    success: boolean;
+    statusCode: number;
+    message: string;
+    data: TFlatShareRequestData;
+  }
+  
+  export type TFlatShareRequestData = {
+    id: string;
+    flatId: string;
+    userId: string;
+    status: string;
+    space: any;
+    message?: string;
+    createdAt: string;
+    updatedAt: string;
+  }

@@ -73,7 +73,7 @@ export default function DashboardDrawer(props: Props) {
              <Typography fontWeight={600}>Dashboard</Typography>
             </Box>
             <Stack direction="row" gap={2}>
-              <Avatar alt="profile image" src="https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg" />
+              <Avatar alt="profile image" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" />
             </Stack>
           </Box>
         </Toolbar>

@@ -1,4 +1,5 @@
 import { authKey } from "@/constants/authKey";
+import { getNewAccessToken } from "@/services/authServices";
 import { getFromLocalStorage, setToLocalStorage } from "@/utils/localStorage";
 import setAuthToken from "@/utils/setAuthToken";
 import axios from "axios";
@@ -27,21 +28,22 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   //@ts-ignore
   function (response) {
-    const responseObject = {
-      data: response?.data?.data,
-      meta: response?.data?.meta,
-    };
-    return responseObject;
+    // const responseObject = {
+    //   data: response?.data?.data,
+    //   meta: response?.data?.meta,
+    // };
+    // return responseObject;
+    return response;
   },
   async function (error) {
     const config = error.config;
     if (error?.response?.data?.message === "jwt expired" && !config.sent) {
       config.sent = true;
-    //   const response = await getNewAccessToken();
-    //   const accessToken = response?.data?.accessToken as string;
-    //   config.headers["Authorization"] = accessToken;
-    //   setToLocalStorage(authKey, accessToken);
-    //   setAuthToken(accessToken);
+      const response = await getNewAccessToken();
+      const accessToken = response?.data?.accessToken as string;
+      config.headers["Authorization"] = accessToken;
+      setToLocalStorage(authKey, accessToken);
+      setAuthToken(accessToken);
       return instance(config);
     } else {
       const responseObject = {

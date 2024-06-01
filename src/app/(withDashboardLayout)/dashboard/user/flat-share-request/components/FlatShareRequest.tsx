@@ -1,33 +1,51 @@
 "use client";
-import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { Box, Button, Checkbox, FormControlLabel, TextField, Typography, Container, Stack } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Button, Checkbox, FormControlLabel, Typography,  Stack } from '@mui/material';
 import Image from 'next/image';
 import BedIcon from '@mui/icons-material/Bed';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { FieldValues } from 'react-hook-form';
 import FlatForm from '@/components/Forms/FlatForm';
 import FlatInput from '@/components/Forms/FlatInput';
+import { getUserInfo } from '@/services/authServices'
+import { TFlat, TFlatShareRequest } from '@/types';
+import { useAddFlatShareRequestMutation } from '@/redux/api/flatShareRequestApi';
+import { toast } from 'sonner';
 
-const FlatShareRequest = () => {
+const FlatShareRequest = ({ flatDetails }: { flatDetails: TFlat }) => {
     const [agreed, setAgreed] = useState<boolean>(false);
+    const [addFlatShareRequest, {isLoading}] = useAddFlatShareRequestMutation();
 
-    const handleSubmit = (values: FieldValues) => {
-        console.log(values);
-    };
+    const user = getUserInfo();
 
-    const handleAgreementChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setAgreed(event.target.checked);
+    const handleSubmit = async (values: FieldValues) => {
+        try {
+            const requestData = {
+                flatId: flatDetails?.id,
+                message: values?.message
+            };
+        const data: TFlatShareRequest | any = await addFlatShareRequest(requestData);
+        
+            if(data?.data?.success){
+                toast.success(data?.data?.message)
+            } else {
+            toast.error("Something went wrong!")
+            }
+        }
+        catch (err: any) {
+            console.log(err)
+        }
     };
 
     const defaultValues = {
-        email: "jack@gmail.com",
-        username: "jack44",
+        email: user?.email || "email",
+        username: user?.username || "username",
         message: ""
     };
 
     return (
         <>
-            <Image height={400} width={700} src="https://www.mynicehome.gov.sg/wp-content/uploads/2-Room-Flex-Flat-Design-Ideas-Cover.png" alt="Photo" style={{ maxWidth: '100%', marginBottom: '10px' }} />
+            <Image height={400} width={700} src={flatDetails?.photos[0]} alt="Photo" style={{ maxWidth: '100%', marginBottom: '10px' }} />
 
             <Stack direction="row" spacing={2} justifyContent="space-between" my={2}>
                 <Box>
@@ -36,7 +54,7 @@ const FlatShareRequest = () => {
                         Rent Amount
                     </Typography>
                     <Typography variant="body1" gutterBottom style={{ color: '#555', paddingLeft: "20px" }}>
-                        5000
+                        {flatDetails?.rentAmount}
                     </Typography>
                 </Box>
 
@@ -46,7 +64,7 @@ const FlatShareRequest = () => {
                         Bedrooms
                     </Typography>
                     <Typography variant="body1" gutterBottom style={{ color: '#555', paddingLeft: "20px" }}>
-                        5
+                        {flatDetails?.bedrooms}
                     </Typography>
                 </Box>
             </Stack>
@@ -58,7 +76,6 @@ const FlatShareRequest = () => {
                 <Stack direction="column" gap={2}>
                     <FlatInput
                         name="email"
-                        label="Your Email"
                         fullWidth
                         InputProps={{
                             readOnly: true,
@@ -90,8 +107,8 @@ const FlatShareRequest = () => {
                         label="I agree to the terms and conditions"
                     />
 
-                    <Button disabled={!agreed} type="submit" variant="contained" size="small" fullWidth sx={{ mt: 2 }}>
-                        Submit
+                    <Button disabled={!agreed || isLoading} type="submit" variant="contained" size="small" fullWidth sx={{ mt: 2 }}>
+                        {isLoading ? "Submiting..." : "Submit"}
                     </Button>
                 </Stack>
             </FlatForm>
