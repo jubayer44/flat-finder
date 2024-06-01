@@ -3,6 +3,14 @@ import { baseApi } from "./baseApi";
 
 export const userApi = baseApi.injectEndpoints({
     endpoints: (builder)=> ({
+        changePassword: builder.mutation({
+            query: (data: {oldPassword: string, newPassword: string})=> ({
+                url: "/auth/change-password",
+                method: "POST",
+                data
+            }),
+            invalidatesTags: [tagTypes.user]
+        }),
         getMetaData: builder.query({
             query: ()=> ({
                 url: "/meta-data",
@@ -13,4 +21,4 @@ export const userApi = baseApi.injectEndpoints({
     })
 });
 
-export const { useGetMetaDataQuery } = userApi;
+export const { useChangePasswordMutation, useGetMetaDataQuery } = userApi;
