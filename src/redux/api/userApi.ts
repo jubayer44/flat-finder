@@ -7,9 +7,26 @@ export const userApi = baseApi.injectEndpoints({
             query: (data: {oldPassword: string, newPassword: string})=> ({
                 url: "/auth/change-password",
                 method: "POST",
+                contentType: "application/json",
                 data
             }),
             invalidatesTags: [tagTypes.user]
+        }),
+        updateUserProfile: builder.mutation({
+            query: (data: {username?: string, email?: string})=> ({
+                url: "/update-user",
+                method: "PUT",
+                contentType: "application/json",
+                data
+            }),
+            invalidatesTags: [tagTypes.user]
+        }),
+        getMyProfile: builder.query({
+            query: ()=> ({
+                url: "/me",
+                method: "GET",
+            }),
+            providesTags: [tagTypes.user]
         }),
         getMetaData: builder.query({
             query: ()=> ({
@@ -21,4 +38,4 @@ export const userApi = baseApi.injectEndpoints({
     })
 });
 
-export const { useChangePasswordMutation, useGetMetaDataQuery } = userApi;
+export const { useChangePasswordMutation, useUpdateUserProfileMutation, useGetMyProfileQuery, useGetMetaDataQuery } = userApi;

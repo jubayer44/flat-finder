@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 const AuthButton = () => {
     const userInfo = getUserInfo();
     const router = useRouter();
-
     
     const handleLogout = () => {
         logoutUser(router);
@@ -17,7 +16,7 @@ const AuthButton = () => {
     return (
         <>
             {
-                userInfo?.email ?
+                userInfo?.role ?
                     <Box component="div" sx={{
                         width: "100%",
                         display: "flex",

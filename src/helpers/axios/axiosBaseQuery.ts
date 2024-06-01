@@ -19,7 +19,7 @@ export const axiosBaseQuery =
     unknown,
     unknown
   > =>
-  async ({ url, method, data, params, headers, contentType }) => {
+  async ({ url, method, data, params, headers, contentType, meta }) => {
     try {
       const result = await axiosInstance({
         url: baseUrl + url,
@@ -35,7 +35,7 @@ export const axiosBaseQuery =
       const err = axiosError as AxiosError;
       return {
         error: {
-          status: err?.response?.success,
+          status: err?.response?.status,
           data: err?.response?.data || err?.message,
         },
       };

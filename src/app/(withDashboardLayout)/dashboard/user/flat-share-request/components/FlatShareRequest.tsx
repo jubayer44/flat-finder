@@ -7,16 +7,17 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { FieldValues } from 'react-hook-form';
 import FlatForm from '@/components/Forms/FlatForm';
 import FlatInput from '@/components/Forms/FlatInput';
-import { getUserInfo } from '@/services/authServices'
 import { TFlat, TFlatShareRequest } from '@/types';
 import { useAddFlatShareRequestMutation } from '@/redux/api/flatShareRequestApi';
+import { useGetMyProfileQuery } from "@/redux/api/userApi";
 import { toast } from 'sonner';
 
 const FlatShareRequest = ({ flatDetails }: { flatDetails: TFlat }) => {
     const [agreed, setAgreed] = useState<boolean>(false);
     const [addFlatShareRequest, {isLoading}] = useAddFlatShareRequestMutation();
+    const {data, isLoading: userLoading} = useGetMyProfileQuery({});
 
-    const user = getUserInfo();
+    const user = data?.data;
 
     const handleSubmit = async (values: FieldValues) => {
         try {
@@ -24,16 +25,16 @@ const FlatShareRequest = ({ flatDetails }: { flatDetails: TFlat }) => {
                 flatId: flatDetails?.id,
                 message: values?.message
             };
-        const data: TFlatShareRequest | any = await addFlatShareRequest(requestData);
-        
-            if(data?.data?.success){
-                toast.success(data?.data?.message)
+        const res: TFlatShareRequest | any = await addFlatShareRequest(requestData);
+            if(res?.data?.success){
+                toast.success(res?.data?.message)
             } else {
             toast.error("Something went wrong!")
             }
         }
         catch (err: any) {
-            console.log(err)
+            console.log("error", err)
+            toast.error(err)
         }
     };
 
@@ -69,7 +70,9 @@ const FlatShareRequest = ({ flatDetails }: { flatDetails: TFlat }) => {
                 </Box>
             </Stack>
 
-            <FlatForm
+           {
+                userLoading ? <Typography sx={{ textAlign: "center", fontWeight: "bold" }}>Loading...</Typography> : 
+                <FlatForm
                 onSubmit={handleSubmit}
                 defaultValues={defaultValues}
             >
@@ -108,10 +111,11 @@ const FlatShareRequest = ({ flatDetails }: { flatDetails: TFlat }) => {
                     />
 
                     <Button disabled={!agreed || isLoading} type="submit" variant="contained" size="small" fullWidth sx={{ mt: 2 }}>
-                        {isLoading ? "Submiting..." : "Submit"}
+                        {isLoading ? "Submitting..." : "Submit"}
                     </Button>
                 </Stack>
             </FlatForm>
+           }
         </>
     );
 };

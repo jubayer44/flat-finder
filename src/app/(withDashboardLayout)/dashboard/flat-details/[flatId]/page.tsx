@@ -1,12 +1,12 @@
+import FlatShareButton from '@/app/(withCommonLayout)/flat-details/component/FlatShareButton';
+import ImageSwiper from '@/app/(withCommonLayout)/flat-details/component/ImageSwiper';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import BedIcon from '@mui/icons-material/Bed';
 import DescriptionIcon from '@mui/icons-material/Description';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Box, Container, Grid, List, ListItem, Stack, Typography } from '@mui/material';
-import FlatShareButton from '../component/FlatShareButton';
-import ImageSwiper from '../component/ImageSwiper';
 
-const FlatDetailsPage = async ({params}: {params: {flatId: string}}) => {
+const FlatDetailsPrivatePage = async ({params}: {params: {flatId: string}}) => {
     
 const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/flats/${params?.flatId}`);
 const flats = await res.json();
@@ -17,7 +17,7 @@ const flatDetails = flats?.data;
         <Container maxWidth="lg">
             <Grid container spacing={4}>
                 <Grid item xs={12} md={6}>
-                    <Typography variant="h4" fontWeight={600} gutterBottom>
+                    <Typography variant="h5" fontWeight={600} gutterBottom>
                         Flat Details
                     </Typography>
                     <Box>
@@ -84,4 +84,4 @@ const flatDetails = flats?.data;
     );
 }
 
-export default FlatDetailsPage;
+export default FlatDetailsPrivatePage;

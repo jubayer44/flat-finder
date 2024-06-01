@@ -3,6 +3,7 @@ import { getNewAccessToken } from "@/services/authServices";
 import { getFromLocalStorage, setToLocalStorage } from "@/utils/localStorage";
 import setAuthToken from "@/utils/setAuthToken";
 import axios from "axios";
+import {TGenericErrorResponse} from '@/types';
 
 const instance = axios.create();
 instance.defaults.headers.post["Content-Type"] = "application/json";
@@ -46,12 +47,13 @@ instance.interceptors.response.use(
       setAuthToken(accessToken);
       return instance(config);
     } else {
-      const responseObject = {
-        statusCode: error?.response?.data?.statusCode || 500,
+      const responseObject: TGenericErrorResponse = {
+        statusCode: error?.response?.data?.errorDetails?.statusCode || 500,
         message: error?.response?.data?.message || "Something went wrong!!!",
         errorMessage: error?.response?.data?.message,
       };
       // return Promise.reject(error);
+      
       return responseObject;
     }
   }

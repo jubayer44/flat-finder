@@ -14,6 +14,14 @@ export type TUser = {
     updatedAt?: string
 };
 
+export type TUserProfile = {
+  id: string;
+  username: string;
+  email: string;
+  role: string;
+  status: string;
+}
+
 export type TFlatShareRequest = {
     success: boolean;
     statusCode: number;
@@ -31,3 +39,14 @@ export type TFlatShareRequest = {
     createdAt: string;
     updatedAt: string;
   }
+
+  export type TGenericErrorResponse = {
+    statusCode: number;
+    message: string;
+    errorMessage: TGenericErrorMessage;
+};
+
+export type TGenericErrorMessage = {
+  path: string;
+  message: string;
+}
