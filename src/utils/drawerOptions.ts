@@ -49,7 +49,7 @@ const drawerOptions = (role: TUserRole) => {
     if(role === USER_ROLE.USER){
         sidebarOptions.flatsOptions.push(
             {
-                title: "My Requests Flat",
+                title: "My Requested Flat",
                 path: `${role}/my-requests-flat`,
                 icon: QuestionAnswerIcon
             },

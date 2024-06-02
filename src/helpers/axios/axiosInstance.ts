@@ -29,12 +29,11 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   //@ts-ignore
   function (response) {
-    // const responseObject = {
-    //   data: response?.data?.data,
-    //   meta: response?.data?.meta,
-    // };
-    // return responseObject;
-    return response;
+    const responseObject = {
+      data: response?.data
+    };
+    return responseObject;
+    // return response;
   },
   async function (error) {
     const config = error.config;

@@ -21,8 +21,8 @@ const Sidebar = ({ handleDrawerClose }: any) => {
     };
 
     useEffect(() => {
-        const { role } = getUserInfo();
-        setUserRole(role);
+        const user = getUserInfo();
+        setUserRole(user?.role);
     }, [])
 
 

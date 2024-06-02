@@ -12,15 +12,30 @@ export const flatShareRequestApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: [tagTypes.flatShareRequest]
         }),
-        getMyFlatRequests: builder.query({
+        deleteAFlatShareRequest: builder.mutation({
+            query: (id: string)=> ({
+                url: `/flat-share-request/${id}`,
+                method: "DELETE",
+            }),
+            invalidatesTags: [tagTypes.flatShareRequest]
+        }),
+        getMyRequestedFlat: builder.query({
             query: (args: Record<string, any>)=> ({
                 url: "/my-flat-requests",
                 method: "GET",
                 params: args
             }),
             providesTags: [tagTypes.flatShareRequest]
-        })
+        }),
+        getRequestsOnMyFlat: builder.query({
+            query: (args: Record<string, any>)=> ({
+                url: "/requests-on-my-flat",
+                method: "GET",
+                params: args
+            }),
+            providesTags: [tagTypes.flatShareRequest]
+        }),
     })
 });
 
-export const { useAddFlatShareRequestMutation, useGetMyFlatRequestsQuery } = flatShareRequestApi;
+export const { useAddFlatShareRequestMutation, useGetMyRequestedFlatQuery, useDeleteAFlatShareRequestMutation, useGetRequestsOnMyFlatQuery} = flatShareRequestApi;

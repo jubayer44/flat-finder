@@ -5,29 +5,32 @@ import { Box, IconButton } from '@mui/material';
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import DeleteIcon from '@mui/icons-material/Delete';
 import ViewAllFlatsModal from './ViewAllFlatsModal';
+import { useGetAllFlatsQuery } from '@/redux/api/flatApi';
+import ConfirmDeleteModal from '@/components/Dashboard/CommonPages/MyFlatPosts/ConfirmDeleteModal';
 
 const ViewAllFlats = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const [flatId, setFlatId] = useState<number>(0);
+    const [deleteOpen, setDeleteOpen] = useState<boolean>(false);
+    const [flatId, setFlatId] = useState<string>("");
+    const {data, isLoading} = useGetAllFlatsQuery({});
 
-  const handleEdit = (id: number) => {
+    const flats = data?.data;
+    
+    const handleEdit = (id: number) => {
     setFlatId(id);
     setIsModalOpen(true);
-  }
+  };
 
-    const schedules = [
-        { id: 1, location: 'New York', bedroom: 2, rentAmount: 2500 , status: "Pending"},
-        { id: 2, location: 'Los Angeles', bedroom: 3, rentAmount: 3000 , status: "Approved"},
-        { id: 3, location: 'Chicago', bedroom: 1, rentAmount: 1500 , status: "Pending"},
-        { id: 4, location: 'Houston', bedroom: 2, rentAmount: 2000 , status: "Reject"},
-        { id: 5, location: 'Phoenix', bedroom: 4, rentAmount: 3500, status: "Pending" }
-    ];
+  const handleDelete = async (id: string) => {
+    setFlatId(id);
+    setDeleteOpen(true);
+  };
+  
 
-const isLoading = false;
 
     const columns: GridColDef[] = [
         { field: 'location', headerName: 'Location', flex: 1 },
-        { field: 'bedroom', headerName: 'Bedroom', flex: 1 },
+        { field: 'bedrooms', headerName: 'Bedrooms', flex: 1 },
         { field: 'rentAmount', headerName: 'Rent Amount', flex: 1 },
         {
             field: "manage",
@@ -51,7 +54,7 @@ const isLoading = false;
             align: "center",
             renderCell: ({ row }) => {
               return (
-                <IconButton aria-label="delete">
+                <IconButton aria-label="delete" onClick={()=> handleDelete(row?.id)}>
                   <DeleteIcon sx={{color: "red"}}/>
                 </IconButton>
               );
@@ -64,13 +67,14 @@ const isLoading = false;
 
     return (
         <Box>
+          <ConfirmDeleteModal open={deleteOpen} setOpen={setDeleteOpen} id={flatId}/>
           <ViewAllFlatsModal open={isModalOpen} setOpen={setIsModalOpen} flatId={flatId}/>
             {
                 !isLoading ? (
             <Box sx={{mt: 5, width: {xs: "280px", sm: "400px", md: "100%"}, overflowX: {xs: "scroll", md: "none"}}}>
                 <Box my={2} sx={{minWidth: "600px"}}>
                     <DataGrid
-                        rows={schedules ?? []}
+                        rows={flats ?? []}
                         columns={columns}
                         hideFooter={true}
                     />

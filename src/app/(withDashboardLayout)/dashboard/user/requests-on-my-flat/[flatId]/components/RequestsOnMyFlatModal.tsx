@@ -4,11 +4,11 @@ import FlatSelectField from '@/components/Forms/FlatSelectField';
 import {Button, Box} from '@mui/material';
 import { FieldValues } from "react-hook-form";
 
-const RequestsOnMyFlatModal = ({open, setOpen}: any) => {
+const RequestsOnMyFlatModal = ({open, setOpen, items}: any) => {
 
 const handleSubmit = (values: FieldValues) => {
     console.log(values)
-}
+};
 
 
     const options = ["Pending", "Approved", "Reject"];
@@ -16,7 +16,7 @@ const handleSubmit = (values: FieldValues) => {
         <FlatModal open={open} setOpen={setOpen} title="Change Status">
             <FlatForm
             onSubmit={handleSubmit}
-            defaultValues={{status: "Pending"}}
+            defaultValues={{status: items?.status || "Status"}}
             >
                 <Box sx={{width: {sx: "200px", sm: "400px", md: "500px"}}}>
                 <FlatSelectField name="status" label="Status" fullWidth  items={options} size="small"/>

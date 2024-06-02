@@ -17,7 +17,7 @@ const MyFlatPost = () => {
     const handleDelete = async (id: string) => {
         setFlatId(id);
         setOpen(true);
-};
+    };
 
     const columns: GridColDef[] = [
         { 
@@ -55,20 +55,22 @@ const MyFlatPost = () => {
         <Container>
             <ConfirmDeleteModal open={open} setOpen={setOpen} id={flatId}/>
             <Typography variant="h6" component="h2" sx={{ textAlign: "center", margin: "0 10px", fontWeight: 600, my: 3 }}>My Flat Posts</Typography>
-            <Box sx={{mt: 5, width: {xs: "280px", sm: "400px", md: "100%"}, overflowX: {xs: "scroll", md: "none"}}}>
-            {
-                !isLoading ? (
-                <Box my={2}  sx={{minWidth: "600px"}}>
-                    <DataGrid
-                        rows={flats ?? []}
-                        columns={columns}
-                        hideFooter={true}
-                    />
-                </Box>) : (
-                <Box>Loading...</Box>
-            )
-            }
-            </Box>
+            {!isLoading && flats?.length < 1 ? <Typography variant='body1' sx={{textAlign: "center", fontWeight: "bold"}}>No result found</Typography> : <Box>
+                {
+                    !isLoading ? (
+                        <Box sx={{ mt: 5, width: { xs: "280px", sm: "400px", md: "100%" }, overflowX: { xs: "scroll", md: "none" } }}>
+                            <Box my={2} sx={{ minWidth: "600px" }}>
+                                <DataGrid
+                                    rows={flats ?? []}
+                                    columns={columns}
+                                    hideFooter={true}
+                                />
+                            </Box>
+                        </Box>) : (
+                        <Typography variant="body1" textAlign="center">Loading...</Typography>
+                    )
+                }
+            </Box>}
         </Container>
     );
 };

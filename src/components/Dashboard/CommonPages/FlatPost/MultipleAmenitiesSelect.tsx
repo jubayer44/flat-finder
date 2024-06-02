@@ -27,9 +27,9 @@ const names = [
 function getStyles(name: string, amenities: readonly string[], theme: Theme) {
   return {
     fontWeight:
-    amenities.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
+    amenities?.indexOf(name) === -1
+        ? theme?.typography.fontWeightRegular
+        : theme?.typography.fontWeightMedium,
   };
 }
 

@@ -52,7 +52,6 @@ const FlatPostPage = () => {
         
         try{
             const flat = await addFlat(postData);
-            console.log(flat)
             if(flat?.data?.success){
                 setLoading(false);
                 toast.success("Flat added successfully")
