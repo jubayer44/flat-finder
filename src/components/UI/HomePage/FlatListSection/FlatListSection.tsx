@@ -6,9 +6,7 @@ import Link from 'next/link';
 
 const FlatListSection = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/flats?limit=6`, {
-    next: {
-      revalidate: 10,
-    },
+    cache: 'no-store',
   });
 
   const flats = await res.json();

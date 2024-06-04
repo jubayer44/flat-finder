@@ -29,11 +29,11 @@ const ViewAllFlats = ({ flats, isLoading }: { flats: any, isLoading: boolean }) 
     {
       field: 'location',
       headerName: 'Location',
-      flex: 1,
+      flex: 2,
       renderCell: ({ row }) => {
         return (
           <Box component={Link} href={`/dashboard/flat-details/${row.flatId}`} sx={{ color: "blue" }}>
-            {row?.flat?.location}
+            {row?.location}
           </Box>
         );
       },

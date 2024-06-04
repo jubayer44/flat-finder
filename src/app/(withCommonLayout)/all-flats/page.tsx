@@ -8,9 +8,7 @@ const AllFlatsPage = async ({ searchParams }: any) => {
     const page = searchParams?.page || 1;
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/flats?limit=6&page=${page}`, {
-        next: {
-            revalidate: 30,
-        },
+        cache: 'no-store',
     });
 
     const flats = await res.json();

@@ -14,9 +14,6 @@ const flats = await res.json();
 
 const flatDetails = flats?.data;
 
-const tok = await getNewAccessToken()
-console.log(tok)
-
     return (
         <Container maxWidth="lg">
             <Grid container spacing={4}>
