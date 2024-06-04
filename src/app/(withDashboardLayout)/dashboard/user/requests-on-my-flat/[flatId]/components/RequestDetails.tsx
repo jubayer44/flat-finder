@@ -12,22 +12,19 @@ import { useState } from 'react';
 import { FieldValues } from 'react-hook-form';
 import RequestsOnMyFlatModal from './RequestsOnMyFlatModal';
 
+type TItems = any
+
 const RequestDetails = ({ flatId }: { flatId: string }) => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const [items, setItems] = useState<{ id: string, status: string }>({});
+    const [items, setItems] = useState<TItems>({} as TItems);
     const { data, isLoading } = useGetRequestsOnMyFlatQuery({});
 
     const reqData = data?.data?.find((flat: any) => flat?.id === flatId);
     const flatDetails = reqData;
 
-
-    const handleSubmit = async (values: FieldValues) => {
-
-    };
-
-
-    const handleChangeStatus = (item) => {
-        setItems(item)
+    const handleChangeStatus = (item: any) => {
+        const { id, status } = item;
+        setItems(item);
 
         setIsModalOpen(true);
     }

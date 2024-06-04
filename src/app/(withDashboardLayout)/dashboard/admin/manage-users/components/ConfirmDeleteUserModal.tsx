@@ -1,10 +1,10 @@
 import FlatModal from '@/components/Shared/FlatModal/FlatModal';
 import {Stack, Button, Box} from '@mui/material';
-import { useDeleteFlatMutation} from "@/redux/api/flatApi";
+import { useDeleteUserMutation } from "@/redux/api/userApi";
 import {toast} from 'sonner';
 
-const ConfirmDeleteModal = ({open, setOpen, id}: any) => {
-    const [deleteFlat, {isLoading: deleting}] = useDeleteFlatMutation();
+const ConfirmDeleteUserModal = ({open, setOpen, id}: any) => {
+    const [deleteUser, {isLoading: deleting}] = useDeleteUserMutation();
 
     const handleCancel = () => {
         setOpen(false);
@@ -12,7 +12,7 @@ const ConfirmDeleteModal = ({open, setOpen, id}: any) => {
 
     const handleConfirmDelete = async () => {
         try{
-            const res = await deleteFlat(id);
+            const res = await deleteUser(id);
             if(res?.data?.success){
                 toast.success(res.data.message);
                 setOpen(false);
@@ -42,4 +42,4 @@ const ConfirmDeleteModal = ({open, setOpen, id}: any) => {
     )
 };
 
-export default ConfirmDeleteModal;
+export default ConfirmDeleteUserModal;

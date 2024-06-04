@@ -13,6 +13,7 @@ import { storeUser } from '@/services/authServices';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { useState } from 'react';
+import { useGetMyProfileQuery } from '@/redux/api/userApi';
 
 
 const validationSchema = z.object({
@@ -23,6 +24,7 @@ const validationSchema = z.object({
 const LoginComponent = () => {
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const {refetch} = useGetMyProfileQuery({});
   const router = useRouter();
 
   const handleSubmit = async (values: FieldValues) => {
@@ -30,6 +32,7 @@ const LoginComponent = () => {
       setLoading(true);
       const res = await loginUser(values);
       if(res?.success === true){
+        refetch();
         router.refresh();
          storeUser({accessToken: res.data.accessToken} );
         setError("");
@@ -103,11 +106,11 @@ const LoginComponent = () => {
           >
             <Box>
               <Grid container spacing={2} my={1}>
-                <Grid item md={6}>
-                  <FlatInput label="Email" name="email" placeholder="Email" type="email" />
+                <Grid item xs={12} sm={12} md={6}>
+                  <FlatInput fullWidth label="Email" name="email" placeholder="Email" type="email" />
                 </Grid>
-                <Grid item md={6}>
-                  <FlatInput name="password" label="Password" placeholder='Password' type="password" />
+                <Grid xs={12} sm={12} item md={6}>
+                  <FlatInput fullWidth name="password" label="Password" placeholder='Password' type="password" />
                 </Grid>
               </Grid>
               <Typography

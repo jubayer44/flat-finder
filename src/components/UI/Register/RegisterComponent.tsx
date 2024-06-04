@@ -14,7 +14,7 @@ import loginUser from '@/services/actions/loginUser';
 import { useRouter } from 'next/navigation';
 import { storeUser } from '@/services/authServices';
 import { useState } from 'react';
-import setAuthToken from '@/utils/setAuthToken';
+import { useGetMyProfileQuery } from '@/redux/api/userApi';
 
 const validationSchema = z
   .object({
@@ -29,6 +29,7 @@ const validationSchema = z
   });
 
 const RegisterComponent = () => {
+  const {refetch} = useGetMyProfileQuery({});
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
@@ -42,8 +43,8 @@ const RegisterComponent = () => {
               password: values?.password
           }
           const data = await registerUser(userInfo);
-          
           if(data?.success){
+            refetch()
             setError("");
             const loginData = await loginUser({
               email: data?.data?.email,
@@ -51,9 +52,8 @@ const RegisterComponent = () => {
             });
             if(loginData?.success){
               router.refresh();
+              refetch()
               storeUser({accessToken: loginData.data.accessToken} );
-              setAuthToken(loginData.data.accessToken);
-              router.push("/dashboard")
               toast.success("Register Successfully")
               setLoading(false)
             }
@@ -65,6 +65,7 @@ const RegisterComponent = () => {
         catch(err: any){
           console.log(err?.message);
           setLoading(false)
+          setError(err?.message);
         }
     }
 
@@ -125,17 +126,17 @@ const RegisterComponent = () => {
             >
               <Box>
                 <Grid container spacing={2} my={1}>
-                  <Grid item md={6}>
-                  <FlatInput label="User Name" name="username" placeholder="User Name" />
+                  <Grid item xs={12} sm={12} md={6}>
+                  <FlatInput fullWidth label="User Name" name="username" placeholder="User Name" />
                   </Grid>
-                  <Grid item md={6}>
-                  <FlatInput label="Email" name="email" placeholder="Email" type="email" />
+                  <Grid item xs={12} sm={12} md={6}>
+                  <FlatInput fullWidth label="Email" name="email" placeholder="Email" type="email" />
                   </Grid>
-                  <Grid item md={6}>
-                  <FlatInput label="Choose Password" name="password" placeholder="Password" type="password" />
+                  <Grid item xs={12} sm={12} md={6}>
+                  <FlatInput fullWidth label="Choose Password" name="password" placeholder="Password" type="password" />
                   </Grid>
-                  <Grid item md={6}>
-                    <FlatInput name="confirmPassword" placeholder='Password' label="Confirm Password" type="password" />
+                  <Grid item xs={12} sm={12} md={6}>
+                    <FlatInput fullWidth name="confirmPassword" placeholder='Password' label="Confirm Password" type="password" />
                   </Grid>
                 </Grid>
                 <Button type="submit" disabled={loading} fullWidth={true} sx={{ margin: "10px 0" }}>

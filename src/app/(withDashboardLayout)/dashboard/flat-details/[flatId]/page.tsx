@@ -5,6 +5,7 @@ import BedIcon from '@mui/icons-material/Bed';
 import DescriptionIcon from '@mui/icons-material/Description';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Box, Container, Grid, List, ListItem, Stack, Typography } from '@mui/material';
+import { getNewAccessToken } from "@/services/authServices";
 
 const FlatDetailsPrivatePage = async ({params}: {params: {flatId: string}}) => {
     
@@ -12,6 +13,9 @@ const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/flats/${params?.flatId}`
 const flats = await res.json();
 
 const flatDetails = flats?.data;
+
+const tok = await getNewAccessToken()
+console.log(tok)
 
     return (
         <Container maxWidth="lg">

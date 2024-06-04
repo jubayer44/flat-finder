@@ -3,6 +3,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { AppBar, Avatar, Box, CssBaseline, Drawer, IconButton, Stack, Toolbar, Typography } from '@mui/material';
 import Sidebar from '../Sidebar/Sidebar';
 import { useState } from 'react';
+import { useGetMyProfileQuery } from '@/redux/api/userApi';
 
 const drawerWidth = 290;
 
@@ -15,6 +16,8 @@ export default function DashboardDrawer(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const {data} = useGetMyProfileQuery({});
+  const user = data?.data;
 
 
   const handleDrawerClose = () => {
@@ -70,7 +73,7 @@ export default function DashboardDrawer(props: Props) {
             }}
           >
             <Box>
-             <Typography fontWeight={600}>Dashboard</Typography>
+             <Typography>Hi, {user?.username && user?.username}</Typography>
             </Box>
             <Stack direction="row" gap={2}>
               <Avatar alt="profile image" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" />

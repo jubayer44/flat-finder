@@ -6,5 +6,5 @@ export const baseApi = createApi({
   reducerPath: "api",
   baseQuery: axiosBaseQuery({ baseUrl: `${process.env.NEXT_PUBLIC_URL}` }),
   endpoints: () => ({}),
-  tagTypes: tagTypesList
+  tagTypes: tagTypesList,
 });

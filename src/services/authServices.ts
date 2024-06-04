@@ -35,12 +35,12 @@ export const getUserProfile = async () => {
 }
 
 export const getNewAccessToken = async () => {
-  const data = await axiosInstance({
+  return await axiosInstance({
     url: `${process.env.NEXT_PUBLIC_URL}/auth/refresh-token`,
     method: "POST",
     headers: { "Content-Type": "application/json" },
     withCredentials: true,
   });
-  return data?.data?.data;
 };
+
 

@@ -1,4 +1,5 @@
 import { USER_ROLE } from './../constants/role';
+import { TFlat } from './flat';
 
 
 
@@ -20,6 +21,8 @@ export type TUserProfile = {
   email: string;
   role: string;
   status: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export type TFlatShareRequest = {
@@ -36,6 +39,18 @@ export type TFlatShareRequest = {
     status: string;
     space: any;
     message?: string;
+    createdAt: string;
+    updatedAt: string;
+  }
+
+  export type TFlatRequestResponse = {
+    flat: TFlat;
+    flatId: string;
+    id: string;
+    message: string;
+    space: null | string;
+    status: string;
+    userId: string;
     createdAt: string;
     updatedAt: string;
   }

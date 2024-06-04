@@ -4,8 +4,6 @@ import FlatForm from '@/components/Forms/FlatForm';
 import FlatInput from '@/components/Forms/FlatInput';
 import {Button, Box, Grid, Typography, Stack} from '@mui/material';
 import { FieldValues } from "react-hook-form";
-import FlatFileUpload from '@/components/Forms/FlatFileUpload';
-import MultipleAmenitiesSelect from '@/components/Dashboard/CommonPages/FlatPost/MultipleAmenitiesSelect';
 import { useState, useEffect } from 'react';
 import { useGetSingleFlatQuery, useRemoveFlatPhotoMutation, useUpdateFlatMutation } from '@/redux/api/flatApi';
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -13,11 +11,12 @@ import Image from 'next/image';
 import uploadImageToCloud from '@/utils/uploadImageToCloudinary';
 import {toast} from 'sonner';
 import {useRouter} from 'next/navigation';
+import MultipleAmenitiesSelect from '../FlatPost/MultipleAmenitiesSelect';
+import FlatFileUpload from '@/components/Forms/FlatFileUpload';
 
 const ViewAllFlatsModal = ({open, setOpen, flatId}: any) => {
-    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [removeFlatPhoto] = useRemoveFlatPhotoMutation();
-    const [updateFlat] = useUpdateFlatMutation();
+    const [updateFlat, {isLoading}] = useUpdateFlatMutation();
     const { data } = useGetSingleFlatQuery(flatId);
     const flat = data?.data;
     const [amenities, setAmenities] = useState<string[]>(flat?.amenities || []);
@@ -26,7 +25,6 @@ const ViewAllFlatsModal = ({open, setOpen, flatId}: any) => {
     const uploadedImages: string[] = []
         
     const handleSubmit = async (values: FieldValues) => {
-        setIsLoading(true)
         const bedrooms = Number(values?.bedrooms || flat?.bedrooms);
         const rentAmount = Number(values?.rentAmount || flat?.rentAmount);
         if (values?.photos && values?.photos?.length) {
@@ -52,16 +50,13 @@ const ViewAllFlatsModal = ({open, setOpen, flatId}: any) => {
             const flatUpdate = await updateFlat(postData);
             if(flatUpdate?.data?.success){
                 setOpen(false);
-                setIsLoading(true);
                 toast.success("Flat updated successfully")
                 router.push(`/dashboard/admin/view-all-flats`)
             } else {
                 toast.error("Something went wrong!")
-                setIsLoading(true);
             }
         }
         catch(err: any){
-            setIsLoading(true);
             console.log(err)
             toast.error(err?.message)
         }

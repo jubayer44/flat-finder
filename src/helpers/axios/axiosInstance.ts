@@ -37,7 +37,7 @@ instance.interceptors.response.use(
   },
   async function (error) {
     const config = error.config;
-    if (error?.response?.data?.message === "jwt expired" && !config.sent) {
+    if (error?.response?.data?.message?.includes("jwt") && !config.sent) {
       config.sent = true;
       const response = await getNewAccessToken();
       const accessToken = response?.data?.accessToken as string;
