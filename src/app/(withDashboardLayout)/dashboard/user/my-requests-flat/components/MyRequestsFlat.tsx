@@ -67,7 +67,27 @@ const MyRequestsFlat = () => {
                 );
             },
         },
-        { field: 'status', headerName: 'Status', flex: 1 },
+        {
+            field: 'status',
+            headerName: 'Status',
+            flex: 1,
+            renderCell: ({ row }) => {
+                let color = "";
+                if(row?.flat?.status === "ACTIVATE"){
+                    color = "green"
+                } else if (row?.flat?.status === "PENDING"){
+                    color = "yellow"
+                } else if (row?.flat?.status === "REJECTED"){
+                    color = "red"
+                }
+                return (
+                    <Box>
+                        <Typography sx={{color: color, fontSize: "12px"}}>{row?.status}</Typography>
+                    </Box>
+                );
+            },
+        },
+        // { field: 'status', headerName: 'Status', flex: 1 },
         {
             field: "action",
             headerName: "Action",

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
-import { Box, IconButton } from '@mui/material';
+import { Box, IconButton, Typography } from '@mui/material';
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import DeleteIcon from '@mui/icons-material/Delete';
 import ManageUsersModal from './ManageUsersModal';
@@ -36,7 +36,21 @@ const ManageUsers = () => {
         { field: 'username', headerName: 'User Name', flex: 1 },
         { field: 'email', headerName: 'Email', flex: 2 },
         { field: 'role', headerName: 'Role', flex: 1 },
-        { field: 'status', headerName: 'Status', flex: 1 },
+        {
+            field: "status",
+            headerName: "Status",
+            flex: 1,
+            renderCell: ({ row }) => {
+              return (
+                <Box>
+                  {
+                    row?.status === "ACTIVATE" ? <Typography sx={{color: "green", fontSize: "12px"}}>{row?.status}</Typography> : 
+                    <Typography sx={{color: "red", fontSize: "12px"}}>{row?.status}</Typography>
+                  }
+                </Box>
+              );
+            },
+          },
         {
             field: "manage",
             headerName: "Manage",

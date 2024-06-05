@@ -22,7 +22,7 @@ export const flatApi = baseApi.injectEndpoints({
     }),
     getMyFlats: builder.query({
       query: (args: Record<string, any>) => ({
-        url: "/flats/my-flats",
+        url: "/flats/my-flats?limit=200",
         method: "GET",
         params: args,
       }),
@@ -30,7 +30,7 @@ export const flatApi = baseApi.injectEndpoints({
     }),
     getAllFlats: builder.query({
       query: (args: Record<string, any>) => ({
-        url: "/flats",
+        url: "/flats?limit=200",
         method: "GET",
         params: args,
       }),

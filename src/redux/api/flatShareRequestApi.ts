@@ -30,7 +30,7 @@ export const flatShareRequestApi = baseApi.injectEndpoints({
     }),
     getMyRequestedFlat: builder.query({
       query: (args: Record<string, any>) => ({
-        url: "/my-flat-requests",
+        url: "/my-flat-requests?limit=200",
         method: "GET",
         params: args,
       }),
@@ -38,7 +38,7 @@ export const flatShareRequestApi = baseApi.injectEndpoints({
     }),
     getRequestsOnMyFlat: builder.query({
       query: (args: Record<string, any>) => ({
-        url: "/requests-on-my-flat",
+        url: "/requests-on-my-flat?limit=200",
         method: "GET",
         params: args,
       }),

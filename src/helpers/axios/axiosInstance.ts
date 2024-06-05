@@ -40,10 +40,12 @@ instance.interceptors.response.use(
     if (error?.response?.data?.message?.includes("jwt") && !config.sent) {
       config.sent = true;
       const response = await getNewAccessToken();
-      const accessToken = response?.data?.accessToken as string;
-      config.headers["Authorization"] = accessToken;
-      setToLocalStorage(authKey, accessToken);
-      setAuthToken(accessToken);
+      const accessToken = response?.data?.data?.accessToken as string;
+      if(accessToekn){
+        config.headers["Authorization"] = accessToken;
+        setToLocalStorage(authKey, accessToken);
+        setAuthToken(accessToken);
+      }
       return instance(config);
     } else {
       const responseObject: TGenericErrorResponse = {
